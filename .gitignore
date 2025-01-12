@@ -1,0 +1,4 @@
+trash
+venv
+.env
+dist/
