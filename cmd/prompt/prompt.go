@@ -35,6 +35,8 @@ func CreateCommitMessage(diffOutput, language, description, stack string) string
 	- Utilize obrigatoriamente o idioma '%s' na geração de sua resposta.
 
 	-- Mande messagens curtas e diretas sobre o assunto
+	
+	- Responda de forma curta use poucas palavras e bem especifico somente no que no que o usuario perguntou. 
 	`, stack, description, diffOutput, language)
 
 	return CallProviderAPI(prompt)
@@ -61,6 +63,8 @@ func CallProviderAPI(prompt string) string {
 				Se as instruções não forem seguidas corretamente, o resultado não será aceito.
 
 				Mande messagens curtas e diretas sobre o assunto
+
+				- Responda de forma curta use poucas palavras e bem especifico somente no que no que o usuario perguntou. 
 			`,
 		},
 		{"role": "user", "content": prompt},

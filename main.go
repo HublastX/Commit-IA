@@ -9,7 +9,6 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/wendellast/Gitgui/cmd/bot"
 	"github.com/wendellast/Gitgui/cmd/prompt"
-	stackproject "github.com/wendellast/Gitgui/cmd/stack_project"
 	"github.com/wendellast/Gitgui/cmd/typecmd"
 )
 
@@ -43,9 +42,9 @@ func executeCLI(outDiff string, url string) *cobra.Command {
 		Run: func(cmd *cobra.Command, args []string) {
 			text, _ := cmd.Flags().GetString("text")
 			languages := "pt-br"
-			stack := stackproject.IdentifyProjectLanguages()
+			//stack := stackproject.IdentifyProjectLanguages()
 
-			commitMessage := prompt.CreateCommitMessage(outDiff, languages, text, stack)
+			commitMessage := prompt.CreateCommitMessage(outDiff, languages, text, "")
 
 			response, err := bot.SendMessageToBot(url, commitMessage)
 			if err != nil {
@@ -73,7 +72,7 @@ func main() {
 		return
 	}
 
-	llm := "https://hublast.com/gui-api/send-message-gui"
+	llm := "https://hublast.com/gui-api/send-message-gui-commitia"
 	rootCmd := executeCLI(outDiff, llm)
 	rootCmd.Flags().StringP("description", "d", "", "Descrição básica do que fez no commit")
 
