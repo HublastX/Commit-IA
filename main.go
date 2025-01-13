@@ -21,7 +21,7 @@ func getProjectPath() (string, error) {
 }
 
 func runGitDiff(projectPath string) (string, error) {
-	cmd := exec.Command("git", "diff")
+	cmd := exec.Command("git", "diff", "HEAD")
 	cmd.Dir = projectPath
 
 	var out, stderr bytes.Buffer
@@ -52,6 +52,8 @@ func executeCLI(outDiff string, url string) *cobra.Command {
 				return
 			}
 
+			fmt.Println(commitMessage)
+
 			err = typecmd.Typecmd(response.Response)
 
 			if err != nil {
@@ -68,8 +70,6 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-
-	fmt.Printf("Diretório atual: %s\n", projectPath)
 
 	outDiff, err := runGitDiff(projectPath)
 	if err != nil {
