@@ -52,8 +52,6 @@ func executeCLI(outDiff string, url string) *cobra.Command {
 				return
 			}
 
-			fmt.Println(commitMessage)
-
 			err = typecmd.Typecmd(response.Response)
 
 			if err != nil {
