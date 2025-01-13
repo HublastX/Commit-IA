@@ -2,15 +2,25 @@ package typecmd
 
 import (
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/go-vgo/robotgo"
 )
 
-func Typecmd(text string) {
-	time.Sleep(2 * time.Second)
+func Typecmd(text string) error {
 
-	command := fmt.Sprintf("git commit -m \"%s\"", text)
+	if text == "" {
+		return fmt.Errorf("mensagem de commit não pode estar vazia")
+	}
+
+	const delaySeconds = 0
+	time.Sleep(delaySeconds * time.Second)
+
+	escapedText := strings.ReplaceAll(text, "\"", "\\\"")
+	command := fmt.Sprintf("git commit -m \"%s\"", escapedText)
 
 	robotgo.TypeStr(command)
+
+	return nil
 }

@@ -36,7 +36,7 @@ func CreateCommitMessage(diffOutput, language, description, stack string) string
 
 	-- Mande messagens curtas e diretas sobre o assunto
 	
-	- Responda de forma curta use poucas palavras e bem especifico somente no que no que o usuario perguntou. 
+	- Responda com poucas palavras, uma messagem curta de direto no maximo 40 caracter
 	`, stack, description, diffOutput, language)
 
 	return CallProviderAPI(prompt)
@@ -64,7 +64,8 @@ func CallProviderAPI(prompt string) string {
 
 				Mande messagens curtas e diretas sobre o assunto
 
-				- Responda de forma curta use poucas palavras e bem especifico somente no que no que o usuario perguntou. 
+				- Responda com poucas palavras, uma messagem curta de direto no maximo 40 caracter
+				
 			`,
 		},
 		{"role": "user", "content": prompt},

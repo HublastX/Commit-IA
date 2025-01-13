@@ -40,7 +40,7 @@ func executeCLI(outDiff string, url string) *cobra.Command {
 		Use:   "commitgui",
 		Short: "A CLI tool for handling commits",
 		Run: func(cmd *cobra.Command, args []string) {
-			text, _ := cmd.Flags().GetString("text")
+			text, _ := cmd.Flags().GetString("description")
 			languages := "pt-br"
 			//stack := stackproject.IdentifyProjectLanguages()
 
@@ -52,7 +52,12 @@ func executeCLI(outDiff string, url string) *cobra.Command {
 				return
 			}
 
-			typecmd.Typecmd(response.Response)
+			err = typecmd.Typecmd(response.Response)
+
+			if err != nil {
+				fmt.Printf("Erro ao digitar o comando: %v\n", err)
+				return
+			}
 		},
 	}
 }
