@@ -1,4 +1,4 @@
-module github.com/wendellast/Gitgui
+module github.com/wendellast/Commit-IA
 
 go 1.23.4
 

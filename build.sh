@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-BINARY_NAME="commitgui"
+BINARY_NAME="commitia"
 
 
 DIST_DIR="dist"

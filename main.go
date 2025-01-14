@@ -7,9 +7,9 @@ import (
 	"os/exec"
 
 	"github.com/spf13/cobra"
-	"github.com/wendellast/Gitgui/cmd/bot"
-	"github.com/wendellast/Gitgui/cmd/prompt"
-	"github.com/wendellast/Gitgui/cmd/typecmd"
+	"github.com/wendellast/Commit-IA/cmd/bot"
+	"github.com/wendellast/Commit-IA/cmd/prompt"
+	"github.com/wendellast/Commit-IA/cmd/typecmd"
 )
 
 func getProjectPath() (string, error) {
