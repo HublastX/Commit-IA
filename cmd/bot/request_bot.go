@@ -23,7 +23,7 @@ func SendMessageToBot(url string, message string) (*ResponsePayload, error) {
 	}
 	jsonData, err := json.Marshal(payload)
 	if err != nil {
-		return nil, fmt.Errorf("erro ao serializar o payload: %v", err)
+		return nil, fmt.Errorf("erro ao serializar o payload test aqui: %v", err)
 	}
 
 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(jsonData))

@@ -22,6 +22,7 @@ func CreateCommitMessage(diffOutput, language, description, stack string) string
 	- Não inclua caminhos completos dos arquivos, apenas nomes principais se necessário.  
 	- Utilize obrigatoriamente o idioma ** %s ** na resposta.  
 	- Esceve a messagem como fosse em primeira pessoa
+	- A messagem tem que ser com palavras curtas diretas ao ponto com falando sobre todas alteraçoes feitas
 	- A saída deve ser **apenas a mensagem de commit final**, sem comentários ou explicações adicionais.  
 	
 
@@ -36,37 +37,5 @@ func CreateCommitMessage(diffOutput, language, description, stack string) string
 
 	`, language, stack, description, diffOutput)
 
-	return CallProviderAPI(prompt)
-}
-
-func CallProviderAPI(prompt string) string {
-	messages := []map[string]string{
-		{
-			"role": "system",
-			"content": `
-				Você é um assistente que ajuda a gerar mensagens de commit para um repositório Git. 
-				As mensagens de commit devem seguir o padrão de Conventional Commits, que usa prefixos específicos para categorizar o tipo de mudança realizada (feat, fix, chore, etc.). 
-				A descrição deve ser concisa e clara, explicando o que foi feito, o motivo da mudança e, se aplicável, o impacto da mudança.
-				As mensagens devem ser geradas com base nas alterações fornecidas pelo comando 'git diff' e em uma descrição básica fornecida pelo usuário opcionalmente. 
-
-				Regras obrigatórias:
-				- NÃO adicione comentários ou explicações adicionais além da mensagem de commit gerada.
-				- NÃO utilize símbolos como   ou qualquer outra formatação para identificar a mensagem de commit.
-				- NÃO adicione quebras de linha ou espaços em branco antes da mensagem de commit.
-				- A saída deve ser APENAS a mensagem de commit final conforme as instruções.
-				- A primeira linha da mensagem deve obrigatoriamente começar com um dos prefixos do padrão de Conventional Commits (feat, fix, chore, etc.).
-				- Após a primeira linha, sempre adicione uma explicação objetiva das alterações realizadas, o motivo da mudança e, se aplicável, o impacto da mudança.
-
-				Se as instruções não forem seguidas corretamente, o resultado não será aceito.
-
-				Mande messagens curtas e diretas sobre o assunto
-
-				- Responda com poucas palavras, uma messagem curta de direto no maximo 40 caracter
-				
-			`,
-		},
-		{"role": "user", "content": prompt},
-	}
-
-	return messages[1]["content"]
+	return prompt
 }
