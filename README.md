@@ -64,6 +64,11 @@ O binário será movido para `/usr/local/bin`.
    commitia -d "Mensagem explicativa sobre as alterações feitas"
    ```
 
+3. Você pode seleciona o idioma que deseja pra llm escreve o commit usando  `-l`:
+   ```bash
+   commitia -l "Ingles"
+   ```
+
 ## Contribuição
 
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e enviar pull requests.

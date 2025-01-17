@@ -21,7 +21,7 @@ func getProjectPath() (string, error) {
 }
 
 func runGitDiff(projectPath string) (string, error) {
-	cmd := exec.Command("git", "diff", "HEAD")
+	cmd := exec.Command("git", "diff", "--cached")
 	cmd.Dir = projectPath
 
 	var out, stderr bytes.Buffer
@@ -40,11 +40,27 @@ func executeCLI(outDiff string, url string) *cobra.Command {
 		Use:   "commitgui",
 		Short: "A CLI tool for handling commits",
 		Run: func(cmd *cobra.Command, args []string) {
-			text, _ := cmd.Flags().GetString("description")
-			languages := "pt-br"
-			//stack := stackproject.IdentifyProjectLanguages()
+			description, err := cmd.Flags().GetString("description")
 
-			commitMessage := prompt.CreateCommitMessage(outDiff, languages, text, "")
+			if err != nil {
+				fmt.Printf("Erro ao receber descrição do commit : %v\n", err)
+				return
+			}
+
+			language, err := cmd.Flags().GetString("language")
+
+			if err != nil {
+				fmt.Printf("Erro ao receber idioma do commit : %v\n", err)
+				return
+			}
+
+			if language == "" {
+				language = "pt-br"
+			}
+
+			fmt.Println(language)
+
+			commitMessage := prompt.CreateCommitMessage(outDiff, language, description)
 
 			response, err := bot.SendMessageToBot(url, commitMessage)
 			if err != nil {
@@ -76,8 +92,10 @@ func main() {
 	}
 
 	llm := "https://hublast.com/gui-api/send-message-gui-commitia"
+
 	rootCmd := executeCLI(outDiff, llm)
 	rootCmd.Flags().StringP("description", "d", "", "Descrição básica do que fez no commit")
+	rootCmd.Flags().StringP("language", "l", "", "Idioma ao qual deve ser escrito o commit")
 
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Printf("Erro ao executar o comando CLI: %v\n", err)
