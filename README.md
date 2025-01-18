@@ -69,6 +69,16 @@ O binário será movido para `/usr/local/bin`.
    commitia -l "Ingles"
    ```
 
+### Model e Prompt
+
+O prompt do projeto junto com modelo da LLM estão disponiveis na **huggingface**
+
+Model utilizando no momento: **Llama-3.2-3B-Instruct**
+
+link do projeto: [huggingface Commit-AI](https://huggingface.co/spaces/wendellast/CommitIa).
+
+
+
 ## Contribuição
 
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e enviar pull requests.

@@ -37,7 +37,7 @@ func runGitDiff(projectPath string) (string, error) {
 
 func executeCLI(outDiff string, url string) *cobra.Command {
 	return &cobra.Command{
-		Use:   "commitgui",
+		Use:   "commitia",
 		Short: "A CLI tool for handling commits",
 		Run: func(cmd *cobra.Command, args []string) {
 			description, err := cmd.Flags().GetString("description")
