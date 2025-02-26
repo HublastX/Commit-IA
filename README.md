@@ -9,7 +9,7 @@ CommitIA é uma ferramenta em Go que utiliza llm para analisar mudanças no cód
 
 1. Clone este repositório:
    ```bash
-   git clone https://github.com/wendellast/Commit-IA
+   git clone https://github.com/HublastX/Commit-IA
    cd commitia
    ```
 
