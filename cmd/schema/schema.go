@@ -1,0 +1,14 @@
+package schemas
+
+type LLMConfig struct {
+	Provider  string `json:"provider"`
+	Model     string `json:"model"`
+	APIKey    string `json:"api_key"`
+	UseRemote bool   `json:"use_remote"`
+}
+
+type ProviderInfo struct {
+	Name   string   `json:"name"`
+	Models []string `json:"models"`
+	EnvVar string   `json:"env_var"`
+}
