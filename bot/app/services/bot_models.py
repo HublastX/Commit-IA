@@ -7,12 +7,11 @@ from openai import OpenAI
 from services.llm_base import LLMBase
 
 
-# filepath: /home/wendellast/Documents/Github/hublast/Commit-IA/bot/app/services/bot_models.py
 def read_commitia_config() -> Dict:
     """
     Read the commitia config file from config/config.json (dentro do /app no Docker).
     """
-    # Caminho absoluto para config/config.json relativo ao diretório de trabalho
+
     config_path = os.path.join(os.path.dirname(__file__), "../config/config.json")
     config_path = os.path.abspath(config_path)
     if not os.path.exists(config_path):

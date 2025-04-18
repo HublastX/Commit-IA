@@ -9,7 +9,6 @@ services:
     networks:
       - project_network
 
-
 networks:
-  project_network:
-    external: true
+    project_network:
+        driver: bridge

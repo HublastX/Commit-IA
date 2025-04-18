@@ -3,7 +3,6 @@ package configpath
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 
@@ -26,7 +25,7 @@ func SaveConfig(config *schemas.LLMConfig) error {
 		return fmt.Errorf("error creating config directory: %v", err)
 	}
 
-	if err := ioutil.WriteFile(configPath, data, 0600); err != nil {
+	if err := os.WriteFile(configPath, data, 0600); err != nil {
 		return fmt.Errorf("error writing config file: %v", err)
 	}
 
