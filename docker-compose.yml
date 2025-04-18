@@ -1,0 +1,11 @@
+services:
+
+  app-bot-commitia:
+    build:
+      context: ./bot
+    ports:
+      - "6013:6013"
+    env_file:
+      - .env
+    restart: on-failure
+
