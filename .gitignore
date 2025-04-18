@@ -1,4 +1,16 @@
 trash
 venv
 .env
+.venv/
 dist/
+__pycache__/
+node_modules/
+*.egg-info/
+*.egg
+*.pyc
+*.pyo
+*.pyd
+
+*.db
+
+config.json

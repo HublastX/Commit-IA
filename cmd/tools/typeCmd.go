@@ -1,4 +1,4 @@
-package typecmd
+package tools
 
 import (
 	"fmt"

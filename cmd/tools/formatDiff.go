@@ -1,4 +1,4 @@
-package prompt
+package tools
 
 import (
 	"fmt"
@@ -36,23 +36,4 @@ func FormatGitDiff(diffOutput string) string {
 	}
 
 	return formattedDiff.String()
-}
-
-func CreateCommitMessage(diffOutput, language, description string) string {
-	formattedDiff := FormatGitDiff(diffOutput)
-
-	prompt := fmt.Sprintf(`
-
-    Informações fornecidas:
-        - Utilize obrigatoriamente o idioma **%s** na resposta.
-        - Idioma do commit: %s
-        - Descrição básica da mudança: %s
-        - Mudanças detalhadas no comando git diff:
-
-        %s
-
-        Escreva a mensagem do commit usando poucas palavras e no idioma: **%s**.
-`, language, language, description, formattedDiff, language)
-
-	return prompt
 }

@@ -1,0 +1,23 @@
+{
+  "name": "commit-ia",
+  "version": "1.0.0",
+  "description": "CommitIA é uma ferramenta em Go que utiliza llm para analisar mudanças no código e gerar mensagens de commit claras e descritivas. Simplifique o processo de criação de commits no Git com mensagens automáticas ou ajustadas ao contexto fornecido.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky",
+    "commitlint": "commitlint --edit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com-wendellast:HublastX/Commit-IA.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "husky": "^9.1.7",
+    "@commitlint/cli": "^19.8.0",
+    "@commitlint/config-conventional": "^19.8.0"
+  }
+}
