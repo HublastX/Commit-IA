@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Para substituir o script existente
+
+npx --no -- commitlint --edit "$1"
