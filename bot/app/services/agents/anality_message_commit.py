@@ -8,7 +8,7 @@ class CommitAnalyzer:
     """
     Class to analyze code changes and generate semantic commit messages.
     """
-# Prompt template for commit message generation
+
     PROMPT_TEMPLATE = """
     Você é um especialista em análise de código e geração de mensagens de commit semânticas.
 
@@ -103,8 +103,8 @@ class CommitAnalyzer:
             tag=tag
         )
 
-        # Invoke the model
+
         response = self.llm_model.get_model().invoke(message)
 
-        # Return just the commit message, no additional formatting
+
         return response.content.strip()
