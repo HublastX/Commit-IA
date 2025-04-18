@@ -5,8 +5,6 @@ services:
       context: ./bot
     ports:
       - "6013:6013"
-    env_file:
-      - .env
     restart: always
     networks:
       - project_network
