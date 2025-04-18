@@ -6,25 +6,12 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+
+	schemas "github.com/HublastX/Commit-IA/schema"
 )
 
-type RequestPayload struct {
-	Message string `json:"message"`
-}
-
-type ResponsePayload struct {
-	Response string `json:"response"`
-}
-
-type CommitAnalyzerRequest struct {
-	CodeChanges string `json:"code_changes"`
-	Description string `json:"description"`
-	Tag         string `json:"tag"`
-	Language    string `json:"language"`
-}
-
-func SendCommitAnalysisRequest(url string, codeChanges, description, tag, language string) (*ResponsePayload, error) {
-	payload := CommitAnalyzerRequest{
+func SendCommitAnalysisRequest(url string, codeChanges, description, tag, language string) (*schemas.ResponsePayload, error) {
+	payload := schemas.CommitAnalyzerRequest{
 		CodeChanges: codeChanges,
 		Description: description,
 		Tag:         tag,
@@ -53,7 +40,7 @@ func SendCommitAnalysisRequest(url string, codeChanges, description, tag, langua
 		return nil, fmt.Errorf("error reading response: %v", err)
 	}
 
-	var responsePayload ResponsePayload
+	var responsePayload schemas.ResponsePayload
 	err = json.Unmarshal(body, &responsePayload)
 	if err != nil {
 		return nil, fmt.Errorf("error deserializing response: %v", err)

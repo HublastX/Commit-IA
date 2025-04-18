@@ -12,3 +12,18 @@ type ProviderInfo struct {
 	Models []string `json:"models"`
 	EnvVar string   `json:"env_var"`
 }
+
+type RequestPayload struct {
+	Message string `json:"message"`
+}
+
+type ResponsePayload struct {
+	Response string `json:"response"`
+}
+
+type CommitAnalyzerRequest struct {
+	CodeChanges string `json:"code_changes"`
+	Description string `json:"description"`
+	Tag         string `json:"tag"`
+	Language    string `json:"language"`
+}

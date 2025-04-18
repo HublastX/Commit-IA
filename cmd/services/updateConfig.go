@@ -11,19 +11,28 @@ import (
 func UpdateConfig() error {
 	existingConfig, _ := services.LoadConfig()
 
-	var useLocal bool
-	prompt := &survey.Confirm{
-		Message: "Do you want to configure a local LLM model? (No = keep current config or use web service)",
-		Default: false,
+	fmt.Println("=== CommitIA Configuration ===")
+
+	options := []string{
+		"Web: Simple and fast to use, no extra configuration needed",
+		"Local: Faster response times but requires provider, model, and API key configuration + Docker",
 	}
 
-	if err := survey.AskOne(prompt, &useLocal); err != nil {
+	var selection string
+	prompt := &survey.Select{
+		Message: "How do you want to use CommitIA?",
+		Options: options,
+		Default: options[0],
+	}
+
+	if err := survey.AskOne(prompt, &selection); err != nil {
 		return fmt.Errorf("error reading response: %v", err)
 	}
 
-	if !useLocal {
-		if existingConfig != nil {
+	useRemote := selection == options[0]
 
+	if useRemote {
+		if existingConfig != nil {
 			if !existingConfig.UseRemote {
 				existingConfig.UseRemote = true
 				if err := services.SaveConfig(existingConfig); err != nil {
@@ -54,6 +63,6 @@ func UpdateConfig() error {
 		return err
 	}
 
-	fmt.Println("Configuration updated successfully!")
+	fmt.Println("Local configuration updated successfully!")
 	return nil
 }

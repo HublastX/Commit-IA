@@ -53,8 +53,14 @@ func main() {
 	}
 
 	outDiff, err := tools.RunGitDiff(projectPath)
+
 	if err != nil {
 		fmt.Println(err)
+		return
+	}
+
+	if outDiff == "" {
+		fmt.Println("No changes detected in the project.")
 		return
 	}
 
@@ -72,7 +78,6 @@ func main() {
 	rootCmd.Flags().StringP("language", "l", "português", "Language in which the commit should be written")
 	rootCmd.Flags().StringP("tag", "t", "", "Semantic commit tag e.g.: feat, fix, chore, etc")
 	rootCmd.Flags().Bool("update", false, "Update LLM configuration")
-	rootCmd.Flags().BoolP("toggle-mode", "m", false, "Toggle between local and remote mode")
 
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Printf("Error executing CLI command: %v\n", err)
