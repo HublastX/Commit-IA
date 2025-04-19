@@ -14,7 +14,7 @@ CommitIA is a command-line tool built in Go that leverages Large Language Models
 
 ### Prerequisites
 
--   Go 1.24 or higher (recommended)
+-   Go 1.24 or higher
 -   Docker (optional, for local LLM mode)
 
 ### Installation Steps
