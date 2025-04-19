@@ -110,11 +110,12 @@ commitia --update
 
 ### Additional Options
 
-| Option | Description               | Example                                   |
-| ------ | ------------------------- | ----------------------------------------- |
-| `-d`   | Add additional context    | `commitia -d "Added login functionality"` |
-| `-l`   | Specify commit language   | `commitia -l "English"`                   |
-| `-t`   | Force specific commit tag | `commitia -t "feat"`                      |
+| Option     | Description                          | Example                                   |
+| ---------- | ------------------------------------ | ----------------------------------------- |
+| `-d`       | Add additional context               | `commitia -d "Added login functionality"` |
+| `-l`       | Specify commit language              | `commitia -l "English"`                   |
+| `-t`       | Force specific commit tag            | `commitia -t "feat"`                      |
+| `--update` | Update configuration or switch modes | `commitia --update`                       |
 
 ### Examples
 
