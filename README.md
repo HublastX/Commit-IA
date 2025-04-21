@@ -19,6 +19,8 @@ CommitIA is a command-line tool built in Go that leverages Large Language Models
 
 ### Installation Steps
 
+#### Linux and macOS
+
 1. Clone the repository:
 
     ```bash
@@ -26,16 +28,26 @@ CommitIA is a command-line tool built in Go that leverages Large Language Models
     cd Commit-IA
     ```
 
-2. Make the installer executable:
+2. Make the installer executable and run it:
 
     ```bash
-    chmod +x ./install
+    chmod +x ./install.sh
+    ./install.sh
     ```
 
-3. Run the installer:
+#### Windows
+
+1. Clone the repository:
 
     ```bash
-    ./install
+    git clone https://github.com/HublastX/Commit-IA
+    cd Commit-IA
+    ```
+
+2. Run the installer:
+
+    ```bash
+    .\install.bat
     ```
 
 ### Troubleshooting Installation
@@ -43,9 +55,28 @@ CommitIA is a command-line tool built in Go that leverages Large Language Models
 If you encounter build errors during installation, you may need to install additional development packages:
 
 <details>
+<summary><b>Windows</b></summary>
+
+1.  Install Scoop package manager (in PowerShell):
+
+    ```powershell
+    Set-ExecutionPolicy RemoteSigned -scope CurrentUser
+    iwr -useb get.scoop.sh | iex
+    ```
+
+2.  Install required dependencies:
+
+    ```powershell
+    scoop install mingw
+    ```
+
+    </details>
+
+<details>
 <summary><b>Ubuntu/Debian-based Systems</b></summary>
 
 ```bash
+sudo apt update
 sudo apt install -y \
     gcc \
     libc6-dev \
@@ -68,17 +99,17 @@ sudo apt install -y \
 ```bash
 sudo pacman -Syu
 sudo pacman -S --needed \
-    gcc \
-    glibc \
-    libx11 \
-    xorg-server-devel \
-    libxtst \
-    libpng \
-    libxcursor \
-    libxrandr \
-    libxinerama \
-    dbus \
-    tesseract
+     gcc \
+     glibc \
+     libx11 \
+     xorg-server-devel \
+     libxtst \
+     libpng \
+     libxcursor \
+     libxrandr \
+     libxinerama \
+     dbus \
+     tesseract
 ```
 
 </details>
@@ -143,11 +174,26 @@ Update configuration or switch between local and web modes:
 commitia --update
 ```
 
-## Configuration
+## Local LLM Configuration
 
--   Web mode uses Google's `gemini-flash-2` model
--   LLM configurations are stored in the `Bot` directory
--   Custom configurations (provider, model, API token) are in `Bot/config/config.json`
+When selecting the Local mode, follow these steps:
+
+1. Select your LLM `provider` (Google, OpenAI, etc.)
+2. Choose an available `model` for your selected provider
+3. Enter your `API key` for the chosen provider
+4. Start the local API server using Docker:
+
+```bash
+docker compose up --build
+```
+
+The local API server will run on port 6013 by default.
+
+## Configuration Details
+
+-   Web mode uses Google's `gemini-flash-2` model by default
+-   All LLM configurations are stored in the `Bot` directory
+-   Custom configurations (provider, model, API token) are managed in `Bot/config/config.json`
 
 ## Contributing
 
