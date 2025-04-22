@@ -19,37 +19,6 @@ CommitIA is a command-line tool built in Go that leverages Large Language Models
 
 ### Installation Steps
 
-#### Linux and macOS
-
-1. Clone the repository:
-
-    ```bash
-    git clone https://github.com/HublastX/Commit-IA
-    cd Commit-IA
-    ```
-
-2. Make the installer executable and run it:
-
-    ```bash
-    chmod +x ./install.sh
-    ./install.sh
-    ```
-
-#### Windows
-
-1. Clone the repository:
-
-    ```bash
-    git clone https://github.com/HublastX/Commit-IA
-    cd Commit-IA
-    ```
-
-2. Run the installer:
-
-    ```bash
-    .\install.bat
-    ```
-
 ### Troubleshooting Installation
 
 If you encounter build errors during installation, you may need to install additional development packages:
@@ -113,6 +82,37 @@ sudo pacman -S --needed \
 ```
 
 </details>
+
+#### Linux and macOS
+
+1. Clone the repository:
+
+    ```bash
+    git clone https://github.com/HublastX/Commit-IA
+    cd Commit-IA
+    ```
+
+2. Make the installer executable and run it:
+
+    ```bash
+    chmod +x ./install.sh
+    ./install.sh
+    ```
+
+#### Windows
+
+1. Clone the repository:
+
+    ```bash
+    git clone https://github.com/HublastX/Commit-IA
+    cd Commit-IA
+    ```
+
+2. Run the installer:
+
+    ```bash
+    .\install.bat
+    ```
 
 The binary will be compiled and installed, making `commitia` available from anywhere in your system.
 
