@@ -12,20 +12,28 @@ import (
 func FirstTimeSetup() (*schemas.LLMConfig, error) {
 	fmt.Println("Welcome to CommitIA! Let's configure the LLM service.")
 
-	var useLocal bool
-	prompt := &survey.Confirm{
-		Message: "Do you want to configure a local LLM model? (No = use default web service)",
-		Default: false,
+	options := []string{
+		"Web: Simple and fast to use, no extra configuration needed",
+		"Local: Faster response times but requires provider, model, and API key configuration + Docker",
 	}
 
-	if err := survey.AskOne(prompt, &useLocal); err != nil {
+	var selection string
+	prompt := &survey.Select{
+		Message: "How do you want to use CommitIA?",
+		Options: options,
+		Default: options[0],
+	}
+
+	if err := survey.AskOne(prompt, &selection); err != nil {
 		return nil, fmt.Errorf("error reading response: %v", err)
 	}
+
+	useRemote := selection == options[0]
 
 	var config *schemas.LLMConfig
 	var err error
 
-	if useLocal {
+	if !useRemote {
 		config, err = configureLocalLLM()
 		if err != nil {
 			return nil, err
