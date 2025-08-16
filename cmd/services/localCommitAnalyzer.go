@@ -13,7 +13,7 @@ func ProcessLocalCommitAnalysis(config *schemas.LLMConfig, codeChanges, descript
 		return nil, fmt.Errorf("error creating commit analyzer: %v", err)
 	}
 
-	commitMessage, err := analyzer.AnalyzeCommit(codeChanges, description, tag, language, config.CommitType)
+	commitMessage, err := analyzer.AnalyzeCommit(codeChanges, description, tag, language, config.CommitType, config.CustomFormatText)
 	if err != nil {
 		return nil, fmt.Errorf("error analyzing commit: %v", err)
 	}

@@ -34,6 +34,7 @@ func FirstTimeSetup() (*schemas.LLMConfig, error) {
 		"Tipo 1: feat(api): implementei nova rota",
 		"Tipo 2: feat: implementei nova rota na api",
 		"Tipo 3: implementei nova rota na api",
+		"Custom: usar meu próprio formato de prompt",
 	}
 
 	var commitTypeSelection string
@@ -48,6 +49,8 @@ func FirstTimeSetup() (*schemas.LLMConfig, error) {
 	}
 
 	var commitType int
+	var customFormatText string
+
 	switch commitTypeSelection {
 	case commitTypeOptions[0]:
 		commitType = 1
@@ -55,6 +58,14 @@ func FirstTimeSetup() (*schemas.LLMConfig, error) {
 		commitType = 2
 	case commitTypeOptions[2]:
 		commitType = 3
+	case commitTypeOptions[3]:
+		commitType = 4
+		var customTextPrompt = &survey.Multiline{
+			Message: "Digite o formato de commit que você deseja (exemplo: 'tipo(escopo): descrição' ou 'Commit: descrição breve'):",
+		}
+		if err := survey.AskOne(customTextPrompt, &customFormatText); err != nil {
+			return nil, fmt.Errorf("error reading custom format text: %v", err)
+		}
 	default:
 		commitType = 1
 	}
@@ -72,6 +83,7 @@ func FirstTimeSetup() (*schemas.LLMConfig, error) {
 	}
 
 	config.CommitType = commitType
+	config.CustomFormatText = customFormatText
 
 	if err := configpath.SaveConfig(config); err != nil {
 		return nil, err
