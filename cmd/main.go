@@ -69,7 +69,7 @@ func main() {
 	if config.UseRemote {
 		fmt.Println("Using remote service:", serviceURL)
 	} else {
-		fmt.Println("Using local service:", serviceURL)
+		fmt.Printf("Using local LLM: %s (%s)\n", config.Provider, config.Model)
 	}
 
 	rootCmd := cli.ExecuteCLI(outDiff, serviceURL)

@@ -9,5 +9,5 @@ func GetServiceURL(config *schemas.LLMConfig) string {
 	if config.UseRemote {
 		return global.DefaultRemoteURL
 	}
-	return global.DefaultLocalURL
+	return ""
 }

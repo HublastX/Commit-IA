@@ -14,13 +14,13 @@ func getConfigFilePath() (string, error) {
 		return "", fmt.Errorf("error getting current file path")
 	}
 
-	baseDir := filepath.Dir(filepath.Dir(filepath.Dir(filepath.Dir(currentFile))))
+	baseDir := filepath.Dir(filepath.Dir(filepath.Dir(currentFile)))
 
-	configDir := filepath.Join(baseDir, "bot", "app", "config")
+	configDir := filepath.Join(baseDir, "data")
 
 	if err := os.MkdirAll(configDir, 0755); err != nil {
 		return "", fmt.Errorf("error creating config directory: %v", err)
 	}
 
-	return filepath.Join(configDir, "config.json"), nil
+	return filepath.Join(configDir, "settings.json"), nil
 }

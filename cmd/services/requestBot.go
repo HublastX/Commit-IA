@@ -8,9 +8,18 @@ import (
 	"net/http"
 
 	schemas "github.com/HublastX/Commit-IA/schema"
+	configpath "github.com/HublastX/Commit-IA/services/configPath"
 )
 
 func SendCommitAnalysisRequest(url string, codeChanges, description, tag, language string) (*schemas.ResponsePayload, error) {
+	config, err := configpath.LoadConfig()
+	if err != nil {
+		return nil, fmt.Errorf("error loading configuration: %v", err)
+	}
+
+	if config != nil && !config.UseRemote {
+		return ProcessLocalCommitAnalysis(config, codeChanges, description, tag, language)
+	}
 	payload := schemas.CommitAnalyzerRequest{
 		CodeChanges: codeChanges,
 		Description: description,
