@@ -10,7 +10,7 @@ node_modules/
 *.pyc
 *.pyo
 *.pyd
-
+data/
 *.db
 
 config.json

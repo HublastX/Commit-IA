@@ -14,7 +14,7 @@ func FirstTimeSetup() (*schemas.LLMConfig, error) {
 
 	options := []string{
 		"Web: Simple and fast to use, no extra configuration needed",
-		"Local: Faster response times but requires provider, model, and API key configuration + Docker",
+		"Local: Faster response times but requires provider, model, and API key configuration",
 	}
 
 	var selection string
@@ -30,6 +30,35 @@ func FirstTimeSetup() (*schemas.LLMConfig, error) {
 
 	useRemote := selection == options[0]
 
+	commitTypeOptions := []string{
+		"Tipo 1: feat(api): implementei nova rota",
+		"Tipo 2: feat: implementei nova rota na api",
+		"Tipo 3: implementei nova rota na api",
+	}
+
+	var commitTypeSelection string
+	commitTypePrompt := &survey.Select{
+		Message: "Escolha o formato de commit que prefere:",
+		Options: commitTypeOptions,
+		Default: commitTypeOptions[0],
+	}
+
+	if err := survey.AskOne(commitTypePrompt, &commitTypeSelection); err != nil {
+		return nil, fmt.Errorf("error reading commit type response: %v", err)
+	}
+
+	var commitType int
+	switch commitTypeSelection {
+	case commitTypeOptions[0]:
+		commitType = 1
+	case commitTypeOptions[1]:
+		commitType = 2
+	case commitTypeOptions[2]:
+		commitType = 3
+	default:
+		commitType = 1
+	}
+
 	var config *schemas.LLMConfig
 	var err error
 
@@ -41,6 +70,8 @@ func FirstTimeSetup() (*schemas.LLMConfig, error) {
 	} else {
 		config = tools.CreateRemoteConfig()
 	}
+
+	config.CommitType = commitType
 
 	if err := configpath.SaveConfig(config); err != nil {
 		return nil, err
