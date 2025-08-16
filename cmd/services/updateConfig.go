@@ -5,64 +5,69 @@ import (
 
 	"github.com/AlecAivazis/survey/v2"
 	services "github.com/HublastX/Commit-IA/services/configPath"
-	"github.com/HublastX/Commit-IA/tools"
 )
 
 func UpdateConfig() error {
-	existingConfig, _ := services.LoadConfig()
-
-	fmt.Println("=== CommitIA Configuration ===")
-
-	options := []string{
-		"Web: Simple and fast to use, no extra configuration needed",
-		"Local: Faster response times but requires provider, model, and API key configuration + Docker",
+	existingConfig, err := services.LoadConfig()
+	if err != nil {
+		return fmt.Errorf("error loading existing configuration: %v", err)
 	}
 
-	var selection string
-	prompt := &survey.Select{
-		Message: "How do you want to use CommitIA?",
-		Options: options,
-		Default: options[0],
+	if existingConfig == nil {
+		return fmt.Errorf("no existing configuration found. Please run initial setup first")
 	}
 
-	if err := survey.AskOne(prompt, &selection); err != nil {
-		return fmt.Errorf("error reading response: %v", err)
+	fmt.Println("=== CommitIA Configuration Update ===")
+	fmt.Printf("Current settings:\n")
+	fmt.Printf("- Service: %s\n", map[bool]string{true: "Remote", false: "Local"}[existingConfig.UseRemote])
+	if !existingConfig.UseRemote {
+		fmt.Printf("- Provider: %s\n", existingConfig.Provider)
+		fmt.Printf("- Model: %s\n", existingConfig.Model)
+	}
+	fmt.Printf("- Commit Type: %d\n", existingConfig.CommitType)
+	if existingConfig.CustomFormatText != "" {
+		fmt.Printf("- Custom Format: %s\n", existingConfig.CustomFormatText)
+	}
+	fmt.Println()
+
+	updateOptions := []string{
+		"Service Type (Local/Remote)",
+		"Commit Format Type",
+		"Provider & Model (Local only)",
+		"API Key (Local only)",
+		"Complete Reconfiguration",
 	}
 
-	useRemote := selection == options[0]
+	var updateSelection string
+	updatePrompt := &survey.Select{
+		Message: "What would you like to update?",
+		Options: updateOptions,
+	}
 
-	if useRemote {
-		if existingConfig != nil {
-			if !existingConfig.UseRemote {
-				existingConfig.UseRemote = true
-				if err := services.SaveConfig(existingConfig); err != nil {
-					return err
-				}
-				fmt.Println("Switched to remote web service.")
-			} else {
-				fmt.Println("Keeping existing remote configuration.")
-			}
+	if err := survey.AskOne(updatePrompt, &updateSelection); err != nil {
+		return fmt.Errorf("error reading update selection: %v", err)
+	}
+
+	switch updateSelection {
+	case updateOptions[0]: // Service Type
+		return updateServiceType(existingConfig)
+	case updateOptions[1]: // Commit Format Type
+		return updateCommitType(existingConfig)
+	case updateOptions[2]: // Provider & Model
+		if existingConfig.UseRemote {
+			fmt.Println("Provider & Model are only applicable for local configuration.")
 			return nil
 		}
-
-		config := tools.CreateRemoteConfig()
-		if err := services.SaveConfig(config); err != nil {
-			return err
+		return updateProviderAndModel(existingConfig)
+	case updateOptions[3]: // API Key
+		if existingConfig.UseRemote {
+			fmt.Println("API Key is only applicable for local configuration.")
+			return nil
 		}
-
-		fmt.Println("Default web service configuration saved successfully!")
-		return nil
+		return updateAPIKey(existingConfig)
+	case updateOptions[4]: // Complete Reconfiguration
+		return updateCompleteConfig(existingConfig)
+	default:
+		return fmt.Errorf("invalid selection")
 	}
-
-	config, err := configureLocalLLM()
-	if err != nil {
-		return err
-	}
-
-	if err := services.SaveConfig(config); err != nil {
-		return err
-	}
-
-	fmt.Println("Local configuration updated successfully!")
-	return nil
 }
