@@ -5,7 +5,7 @@ import (
 
 	"github.com/AlecAivazis/survey/v2"
 	schemas "github.com/HublastX/Commit-IA/schema"
-	configpath "github.com/HublastX/Commit-IA/services/configPath"
+	configpath "github.com/HublastX/Commit-IA/services/config_path"
 	"github.com/HublastX/Commit-IA/tools"
 )
 

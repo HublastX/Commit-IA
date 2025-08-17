@@ -5,7 +5,7 @@ import (
 
 	"github.com/AlecAivazis/survey/v2"
 	schemas "github.com/HublastX/Commit-IA/schema"
-	services "github.com/HublastX/Commit-IA/services/configPath"
+	services "github.com/HublastX/Commit-IA/services/config_path"
 )
 
 func updateServiceType(config *schemas.LLMConfig) error {

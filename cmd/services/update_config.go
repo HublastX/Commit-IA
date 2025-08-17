@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/AlecAivazis/survey/v2"
-	services "github.com/HublastX/Commit-IA/services/configPath"
+	services "github.com/HublastX/Commit-IA/services/config_path"
 )
 
 func UpdateConfig() error {
@@ -51,25 +51,25 @@ func UpdateConfig() error {
 	}
 
 	switch updateSelection {
-	case updateOptions[0]: // Service Type
+	case updateOptions[0]:
 		return updateServiceType(existingConfig)
-	case updateOptions[1]: // Commit Format Type
+	case updateOptions[1]:
 		return updateCommitType(existingConfig)
-	case updateOptions[2]: // Git Emoji Usage
+	case updateOptions[2]:
 		return updateEmojiUsage(existingConfig)
-	case updateOptions[3]: // Provider & Model
+	case updateOptions[3]:
 		if existingConfig.UseRemote {
 			fmt.Println("Provider & Model are only applicable for local configuration.")
 			return nil
 		}
 		return updateProviderAndModel(existingConfig)
-	case updateOptions[4]: // API Key
+	case updateOptions[4]:
 		if existingConfig.UseRemote {
 			fmt.Println("API Key is only applicable for local configuration.")
 			return nil
 		}
 		return updateAPIKey(existingConfig)
-	case updateOptions[5]: // Complete Reconfiguration
+	case updateOptions[5]:
 		return updateCompleteConfig(existingConfig)
 	default:
 		return fmt.Errorf("invalid selection")

@@ -3,7 +3,6 @@ package configpath
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"os"
 
 	schemas "github.com/HublastX/Commit-IA/schema"
@@ -19,7 +18,7 @@ func LoadConfig() (*schemas.LLMConfig, error) {
 		return nil, nil
 	}
 
-	data, err := ioutil.ReadFile(configPath)
+	data, err := os.ReadFile(configPath)
 	if err != nil {
 		return nil, fmt.Errorf("error reading config file: %v", err)
 	}
