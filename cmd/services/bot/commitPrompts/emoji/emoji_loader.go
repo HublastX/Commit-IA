@@ -1,4 +1,4 @@
-package commitprompts
+package emoji
 
 import (
 	"encoding/json"
