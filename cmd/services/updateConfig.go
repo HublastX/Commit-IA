@@ -28,11 +28,13 @@ func UpdateConfig() error {
 	if existingConfig.CustomFormatText != "" {
 		fmt.Printf("- Custom Format: %s\n", existingConfig.CustomFormatText)
 	}
+	fmt.Printf("- Use Git Emoji: %t\n", existingConfig.UseGitEmoji)
 	fmt.Println()
 
 	updateOptions := []string{
 		"Service Type (Local/Remote)",
 		"Commit Format Type",
+		"Git Emoji Usage",
 		"Provider & Model (Local only)",
 		"API Key (Local only)",
 		"Complete Reconfiguration",
@@ -53,19 +55,21 @@ func UpdateConfig() error {
 		return updateServiceType(existingConfig)
 	case updateOptions[1]: // Commit Format Type
 		return updateCommitType(existingConfig)
-	case updateOptions[2]: // Provider & Model
+	case updateOptions[2]: // Git Emoji Usage
+		return updateEmojiUsage(existingConfig)
+	case updateOptions[3]: // Provider & Model
 		if existingConfig.UseRemote {
 			fmt.Println("Provider & Model are only applicable for local configuration.")
 			return nil
 		}
 		return updateProviderAndModel(existingConfig)
-	case updateOptions[3]: // API Key
+	case updateOptions[4]: // API Key
 		if existingConfig.UseRemote {
 			fmt.Println("API Key is only applicable for local configuration.")
 			return nil
 		}
 		return updateAPIKey(existingConfig)
-	case updateOptions[4]: // Complete Reconfiguration
+	case updateOptions[5]: // Complete Reconfiguration
 		return updateCompleteConfig(existingConfig)
 	default:
 		return fmt.Errorf("invalid selection")

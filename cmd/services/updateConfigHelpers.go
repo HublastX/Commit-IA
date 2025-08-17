@@ -106,21 +106,99 @@ func updateCommitType(config *schemas.LLMConfig) error {
 	return nil
 }
 
-func updateProviderAndModel(config *schemas.LLMConfig) error {
-	newConfig, err := configureLocalLLM()
-	if err != nil {
+func updateEmojiUsage(config *schemas.LLMConfig) error {
+	useEmojiPrompt := &survey.Confirm{
+		Message: "Deseja usar emojis do Git nas mensagens de commit?",
+		Default: config.UseGitEmoji,
+	}
+
+	var useEmoji bool
+	if err := survey.AskOne(useEmojiPrompt, &useEmoji); err != nil {
+		return fmt.Errorf("error reading emoji preference: %v", err)
+	}
+
+	config.UseGitEmoji = useEmoji
+
+	if err := services.SaveConfig(config); err != nil {
 		return err
 	}
 
-	config.Provider = newConfig.Provider
-	config.Model = newConfig.Model
-	config.APIKey = newConfig.APIKey
+	fmt.Printf("Git emoji usage updated to: %t\n", useEmoji)
+	return nil
+}
+
+func updateProviderAndModel(config *schemas.LLMConfig) error {
+	updateOptions := []string{
+		"Update both Provider and Model",
+		"Update only Model",
+	}
+
+	var updateSelection string
+	updatePrompt := &survey.Select{
+		Message: "What would you like to update?",
+		Options: updateOptions,
+	}
+
+	if err := survey.AskOne(updatePrompt, &updateSelection); err != nil {
+		return fmt.Errorf("error reading update selection: %v", err)
+	}
+
+	if updateSelection == updateOptions[0] {
+		// Update both provider and model
+		newConfig, err := configureLocalLLM()
+		if err != nil {
+			return err
+		}
+		config.Provider = newConfig.Provider
+		config.Model = newConfig.Model
+		config.APIKey = newConfig.APIKey
+	} else {
+		// Update only model
+		err := updateModelOnly(config)
+		if err != nil {
+			return err
+		}
+	}
 
 	if err := services.SaveConfig(config); err != nil {
 		return err
 	}
 
 	fmt.Printf("Provider and model updated to: %s (%s)\n", config.Provider, config.Model)
+	return nil
+}
+
+func updateModelOnly(config *schemas.LLMConfig) error {
+	provider := FindProviderByName(config.Provider)
+	if provider == nil {
+		return fmt.Errorf("current provider %s not found", config.Provider)
+	}
+
+	modelOptions := append(provider.Models, "Custom: digite o nome do modelo manualmente")
+
+	var modelSelection string
+	modelPrompt := &survey.Select{
+		Message: "Choose LLM model:",
+		Options: modelOptions,
+		Default: config.Model,
+	}
+	if err := survey.AskOne(modelPrompt, &modelSelection); err != nil {
+		return fmt.Errorf("error selecting model: %v", err)
+	}
+
+	var modelName string
+	if modelSelection == "Custom: digite o nome do modelo manualmente" {
+		customModelPrompt := &survey.Input{
+			Message: "Digite o nome do modelo (ex: gpt-4o-mini, claude-3-sonnet, etc.):",
+		}
+		if err := survey.AskOne(customModelPrompt, &modelName); err != nil {
+			return fmt.Errorf("error reading custom model name: %v", err)
+		}
+	} else {
+		modelName = modelSelection
+	}
+
+	config.Model = modelName
 	return nil
 }
 
@@ -217,9 +295,20 @@ func updateCompleteConfig(config *schemas.LLMConfig) error {
 		config.APIKey = ""
 	}
 
+	useEmojiPrompt := &survey.Confirm{
+		Message: "Deseja usar emojis do Git nas mensagens de commit?",
+		Default: false,
+	}
+
+	var useEmoji bool
+	if err := survey.AskOne(useEmojiPrompt, &useEmoji); err != nil {
+		return fmt.Errorf("error reading emoji preference: %v", err)
+	}
+
 	config.UseRemote = useRemote
 	config.CommitType = commitType
 	config.CustomFormatText = customFormatText
+	config.UseGitEmoji = useEmoji
 
 	if err := services.SaveConfig(config); err != nil {
 		return err

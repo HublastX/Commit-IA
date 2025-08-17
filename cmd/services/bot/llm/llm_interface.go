@@ -39,19 +39,19 @@ func NewCommitAnalyzer(provider, model, apiKey string) (*CommitAnalyzer, error) 
 	}, nil
 }
 
-func (ca *CommitAnalyzer) AnalyzeCommit(codeChanges, description, tag, language string, commitType int, customFormatText string) (string, error) {
+func (ca *CommitAnalyzer) AnalyzeCommit(codeChanges, description, tag, language string, commitType int, customFormatText string, useEmoji bool) (string, error) {
 	var promptTemplate string
 	var prompt string
 	var err error
 
 	if commitType == 4 && customFormatText != "" {
-		promptTemplate, err = commitprompts.GetCustomPrompt(customFormatText)
+		promptTemplate, err = commitprompts.GetCustomPrompt(customFormatText, useEmoji)
 		if err != nil {
 			return "", fmt.Errorf("failed to get custom prompt: %v", err)
 		}
 		prompt = fmt.Sprintf(promptTemplate, codeChanges, language, description, tag, customFormatText)
 	} else {
-		promptTemplate, err = commitprompts.GetPrompt(commitType)
+		promptTemplate, err = commitprompts.GetPrompt(commitType, useEmoji)
 		if err != nil {
 			return "", fmt.Errorf("failed to get prompt: %v", err)
 		}

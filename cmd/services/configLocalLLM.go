@@ -34,13 +34,27 @@ func configureLocalLLM() (*schemas.LLMConfig, error) {
 
 	config.Provider = providerName
 
-	var modelName string
+	modelOptions := append(provider.Models, "Custom: digite o nome do modelo manualmente")
+
+	var modelSelection string
 	modelPrompt := &survey.Select{
 		Message: "Choose LLM model:",
-		Options: provider.Models,
+		Options: modelOptions,
 	}
-	if err := survey.AskOne(modelPrompt, &modelName); err != nil {
+	if err := survey.AskOne(modelPrompt, &modelSelection); err != nil {
 		return nil, fmt.Errorf("error selecting model: %v", err)
+	}
+
+	var modelName string
+	if modelSelection == "Custom: digite o nome do modelo manualmente" {
+		customModelPrompt := &survey.Input{
+			Message: "Digite o nome do modelo (ex: gpt-4o-mini, claude-3-sonnet, etc.):",
+		}
+		if err := survey.AskOne(customModelPrompt, &modelName); err != nil {
+			return nil, fmt.Errorf("error reading custom model name: %v", err)
+		}
+	} else {
+		modelName = modelSelection
 	}
 
 	config.Model = modelName

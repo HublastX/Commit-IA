@@ -82,8 +82,19 @@ func FirstTimeSetup() (*schemas.LLMConfig, error) {
 		config = tools.CreateRemoteConfig()
 	}
 
+	useEmojiPrompt := &survey.Confirm{
+		Message: "Deseja usar emojis do Git nas mensagens de commit?",
+		Default: false,
+	}
+
+	var useEmoji bool
+	if err := survey.AskOne(useEmojiPrompt, &useEmoji); err != nil {
+		return nil, fmt.Errorf("error reading emoji preference: %v", err)
+	}
+
 	config.CommitType = commitType
 	config.CustomFormatText = customFormatText
+	config.UseGitEmoji = useEmoji
 
 	if err := configpath.SaveConfig(config); err != nil {
 		return nil, err

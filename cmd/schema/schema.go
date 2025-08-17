@@ -7,6 +7,7 @@ type LLMConfig struct {
 	UseRemote        bool   `json:"use_remote"`
 	CommitType       int    `json:"commit_type"`
 	CustomFormatText string `json:"custom_format_text,omitempty"`
+	UseGitEmoji      bool   `json:"use_git_emoji"`
 }
 
 type ProviderInfo struct {
