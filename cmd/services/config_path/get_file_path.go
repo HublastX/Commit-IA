@@ -4,19 +4,15 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"runtime"
 )
 
 func getConfigFilePath() (string, error) {
-
-	_, currentFile, _, ok := runtime.Caller(0)
-	if !ok {
-		return "", fmt.Errorf("error getting current file path")
+	homeDir, err := os.UserHomeDir()
+	if err != nil {
+		return "", fmt.Errorf("error getting user home directory: %v", err)
 	}
 
-	baseDir := filepath.Dir(filepath.Dir(filepath.Dir(currentFile)))
-
-	configDir := filepath.Join(baseDir, "data")
+	configDir := filepath.Join(homeDir, ".commitia")
 
 	if err := os.MkdirAll(configDir, 0755); err != nil {
 		return "", fmt.Errorf("error creating config directory: %v", err)
