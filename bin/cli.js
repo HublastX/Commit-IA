@@ -9,64 +9,46 @@ const binName = platform === "win32" ? "commitia.exe" : "commitia";
 const binPath = path.join(__dirname, "..", "dist", binName);
 
 function runCommitIA() {
-  // Verificar se o binário existe
+  // Verificar se binário existe
   if (!fs.existsSync(binPath)) {
-    console.error("❌ Binário CommitIA não encontrado!");
-    console.error(`   Esperado em: ${binPath}`);
-    console.error("\n💡 Tente executar:");
-    console.error("   npm run postinstall");
-    console.error("   ou");
-    console.error("   node bin/install.js");
+    console.error("❌ Binário não encontrado!");
+    console.error(`   Esperado: ${binPath}`);
+    console.error("\n💡 Execute: npm run postinstall");
     process.exit(1);
   }
 
-  // Verificar se é executável
+  // Verificar permissões
   try {
     fs.accessSync(binPath, fs.constants.F_OK | fs.constants.X_OK);
   } catch (error) {
-    console.error("❌ Binário encontrado mas não é executável!");
     if (platform !== "win32") {
-      console.log("🔧 Tentando corrigir permissões...");
       try {
         fs.chmodSync(binPath, 0o755);
-        console.log("✅ Permissões corrigidas!");
       } catch (chmodError) {
-        console.error("❌ Não foi possível corrigir permissões:", chmodError.message);
+        console.error("❌ Erro de permissões:", chmodError.message);
         process.exit(1);
       }
-    } else {
-      process.exit(1);
     }
   }
 
-  // Executar o binário diretamente - deixar o Go lidar com todos os casos
+  // Executar binário
   const args = process.argv.slice(2);
-  
   const child = spawn(binPath, args, {
     stdio: "inherit",
     shell: false
   });
 
   child.on("error", (error) => {
-    if (error.code === "ENOENT") {
-      console.error("❌ Não foi possível executar o binário CommitIA");
-      console.error(`   Caminho: ${binPath}`);
-      console.error("\n💡 Se o problema persistir, tente:");
-      console.error("   npm run postinstall");
-    } else {
-      console.error("❌ Erro ao executar CommitIA:", error.message);
-    }
+    console.error("❌ Erro ao executar:", error.message);
     process.exit(1);
   });
 
   child.on("exit", (code, signal) => {
     if (signal) {
-      console.error(`CommitIA foi terminado pelo sinal: ${signal}`);
       process.exit(1);
     }
     process.exit(code || 0);
   });
 }
 
-// Executar
 runCommitIA();
