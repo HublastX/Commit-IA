@@ -28,7 +28,7 @@ CommitAI offers multiple installation methods to suit your preferences:
 
 **Option 1: NPM Global Install**
 ```bash
-npm install -g commit-ai-hub
+npm install -g commit-ai-hublast
 ```
 
 **Option 2: From Repository**
