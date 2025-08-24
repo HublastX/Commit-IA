@@ -9,7 +9,6 @@ const binName = platform === "win32" ? "commitia.exe" : "commitia";
 const binPath = path.join(__dirname, "..", "dist", binName);
 
 function runCommitIA() {
-  // Verificar se binário existe
   if (!fs.existsSync(binPath)) {
     console.error("❌ Binário não encontrado!");
     console.error(`   Esperado: ${binPath}`);
@@ -17,7 +16,6 @@ function runCommitIA() {
     process.exit(1);
   }
 
-  // Verificar permissões
   try {
     fs.accessSync(binPath, fs.constants.F_OK | fs.constants.X_OK);
   } catch (error) {
@@ -31,7 +29,6 @@ function runCommitIA() {
     }
   }
 
-  // Executar binário
   const args = process.argv.slice(2);
   const child = spawn(binPath, args, {
     stdio: "inherit",

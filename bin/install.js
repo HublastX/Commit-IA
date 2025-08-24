@@ -34,16 +34,14 @@ if (!mappedPlatform || !mappedArch) {
   process.exit(1);
 }
 
-// Nome do binário
 const binName = platform === "win32" ? "commitia.exe" : "commitia";
 const binPath = path.join(distDir, binName);
 
-// URL do binário - usando o nome atual do seu release
 let fileName;
 if (platform === "win32") {
-  fileName = "commitia.exe";  // Se você tiver binário separado para Windows
+  fileName = "commitia.exe";  
 } else {
-  fileName = "commitia";  // Nome atual no seu GitHub Release
+  fileName = "commitia"; 
 }
 
 const url = `https://github.com/${repo}/releases/download/${version}/${fileName}`;
@@ -80,7 +78,6 @@ function downloadBinary() {
       throw new Error("Arquivo baixado está vazio");
     }
 
-    // Tornar executável
     if (platform !== "win32") {
       fs.chmodSync(binPath, 0o755);
     }
