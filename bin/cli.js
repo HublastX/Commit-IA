@@ -10,9 +10,9 @@ const binPath = path.join(__dirname, "..", "dist", binName);
 
 function runcommitai() {
     if (!fs.existsSync(binPath)) {
-        console.error("❌ Binário não encontrado!");
-        console.error(`   Esperado: ${binPath}`);
-        console.error("\n💡 Execute: npm run postinstall");
+        console.error("❌ Binary not found!");
+        console.error(`   Expected: ${binPath}`);
+        console.error("\n💡 Run: npm run postinstall");
         process.exit(1);
     }
 
@@ -23,7 +23,7 @@ function runcommitai() {
             try {
                 fs.chmodSync(binPath, 0o755);
             } catch (chmodError) {
-                console.error("❌ Erro de permissões:", chmodError.message);
+                console.error("❌ Permission error:", chmodError.message);
                 process.exit(1);
             }
         }
@@ -36,7 +36,7 @@ function runcommitai() {
     });
 
     child.on("error", (error) => {
-        console.error("❌ Erro ao executar:", error.message);
+        console.error("❌ Execution error:", error.message);
         process.exit(1);
     });
 

@@ -4,59 +4,101 @@ CommitAI is a command-line tool built in Go that leverages Large Language Models
 
 ## Features
 
--   🤖 Automatic commit message generation
--   🌐 Support for both local and remote LLM processing
--   🔄 Easy configuration management
--   🌍 Multi-language commit message support
--   🏷️ Custom commit tag selection
+### 🎯 Core Features
+-   🤖 **Automatic commit message generation** - AI-powered commit analysis
+-   🌐 **Dual processing modes** - Local and remote LLM processing
+-   🔄 **Easy configuration management** - Simple setup and updates
+-   🌍 **Multi-language support** - Commit messages in any language
+-   🏷️ **Custom commit tags** - Force specific commit types
+
+### ✨ New in Version 2.0
+-   📋 **Multiple commit formats** - Support for native Git or custom standards
+-   🎨 **Personal prompts** - Define your own commit patterns and styles
+-   🔌 **Universal model support** - Any local model or free web version compatibility
+-   📦 **Easy installation** - Available via NPM or compiled binaries
+-   🔧 **Native Git integration** - Enhanced Git support with advanced customization
+-   🖥️ **Improved interface** - Better menu navigation and user experience
+-   ⚡ **Performance boost** - Faster execution and optimized CLI performance
 
 ## Installation
 
-### Prerequisites
+CommitAI offers multiple installation methods to suit your preferences:
 
+### 🚀 Quick Install (Recommended)
+
+**Option 1: NPM Global Install**
+```bash
+npm install -g commit-ai-hub
+```
+
+**Option 2: From Repository**
+```bash
+git clone https://github.com/HublastX/Commit-IA
+cd Commit-IA
+npm install -g
+```
+
+### 🔧 Manual Compilation
+
+**Prerequisites:**
 -   Go 1.24 or higher
--   Docker (optional, for local LLM mode)
+-   Node.js 20+ (for NPM installation)
 
-### Installation Steps
+**Steps:**
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/HublastX/Commit-IA
+   cd Commit-IA
+   ```
 
-### Troubleshooting Installation
+2. Compile for your platform using Go:
+   ```bash
+   go build -o commitai ./cmd
+   ```
 
-If you encounter build errors during installation, you may need to install additional development packages:
+3. Move binary to your PATH or use local installer scripts
+
+### 🛠️ Alternative Installation Methods
+
+**Legacy Installer Scripts (Linux/macOS):**
+```bash
+chmod +x ./install.sh
+./install.sh
+```
+
+**Legacy Installer Scripts (Windows):**
+```cmd
+.\install.bat
+```
+
+### 🔧 Troubleshooting Installation
+
+If you encounter build errors during manual compilation, install the required development packages:
 
 <details>
 <summary><b>Windows</b></summary>
 
-1.  Install Scoop package manager (in PowerShell):
+1. Install Scoop package manager (PowerShell):
+   ```powershell
+   Set-ExecutionPolicy RemoteSigned -scope CurrentUser
+   iwr -useb get.scoop.sh | iex
+   ```
 
-    ```powershell
-    Set-ExecutionPolicy RemoteSigned -scope CurrentUser
-    iwr -useb get.scoop.sh | iex
-    ```
+2. Install dependencies:
+   ```powershell
+   scoop install mingw
+   ```
 
-2.  Install required dependencies:
-
-    ```powershell
-    scoop install mingw
-    ```
-
-    </details>
+</details>
 
 <details>
-<summary><b>Ubuntu/Debian-based Systems</b></summary>
+<summary><b>Ubuntu/Debian</b></summary>
 
 ```bash
-sudo apt update
-sudo apt install -y \
-    gcc \
-    libc6-dev \
-    libx11-dev \
-    xorg-dev \
-    libxtst-dev \
-    libpng-dev \
-    libxcursor-dev \
-    libxrandr-dev \
-    libxinerama-dev \
-    libdbus-1-dev \
+sudo apt update && sudo apt install -y \
+    gcc libc6-dev libx11-dev xorg-dev \
+    libxtst-dev libpng-dev libxcursor-dev \
+    libxrandr-dev libxinerama-dev libdbus-1-dev \
     tesseract-ocr
 ```
 
@@ -66,55 +108,13 @@ sudo apt install -y \
 <summary><b>Arch Linux/Manjaro</b></summary>
 
 ```bash
-sudo pacman -Syu
-sudo pacman -S --needed \
-     gcc \
-     glibc \
-     libx11 \
-     xorg-server-devel \
-     libxtst \
-     libpng \
-     libxcursor \
-     libxrandr \
-     libxinerama \
-     dbus \
-     tesseract
+sudo pacman -Syu && sudo pacman -S --needed \
+    gcc glibc libx11 xorg-server-devel \
+    libxtst libpng libxcursor libxrandr \
+    libxinerama dbus tesseract
 ```
 
 </details>
-
-#### Linux and macOS
-
-1. Clone the repository:
-
-    ```bash
-    git clone https://github.com/HublastX/Commit-IA
-    cd Commit-IA
-    ```
-
-2. Make the installer executable and run it:
-
-    ```bash
-    chmod +x ./install.sh
-    ./install.sh
-    ```
-
-#### Windows
-
-1. Clone the repository:
-
-    ```bash
-    git clone https://github.com/HublastX/Commit-IA
-    cd Commit-IA
-    ```
-
-2. Run the installer:
-
-    ```bash
-    .\install.bat
-    ```
-
-The binary will be compiled and installed, making `commitai` available from anywhere in your system.
 
 ## Usage
 
@@ -176,18 +176,15 @@ commitai --update
 
 ## Local LLM Configuration
 
-When selecting the Local mode, follow these steps:
+When selecting the Local mode, simply configure through the CLI:
 
-1. Select your LLM `provider` (Google, OpenAI, etc.)
-2. Choose an available `model` for your selected provider
-3. Enter your `API key` for the chosen provider
-4. Start the local API server using Docker:
+1. Run `commitai --update` to access configuration
+2. Select **Local Mode** when prompted
+3. Choose your LLM `provider` (Google, OpenAI, Anthropic, etc.)
+4. Select an available `model` for your chosen provider
+5. Enter your `API key` for the provider
 
-```bash
-docker compose up --build
-```
-
-The local API server will run on port 6013 by default.
+That's it! No Docker setup required - the tool will handle everything automatically.
 
 ## Configuration Details
 
