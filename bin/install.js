@@ -9,7 +9,6 @@ const arch = os.arch();
 const version = "v2.0.0";
 const repo = "HublastX/Commit-IA";
 
-// Mapear arquiteturas e plataformas
 const archMap = {
     x64: "amd64",
     arm64: "arm64",
@@ -30,7 +29,7 @@ const mappedPlatform = platformMap[platform];
 const mappedArch = archMap[arch];
 
 if (!mappedPlatform || !mappedArch) {
-    console.error(`❌ Plataforma não suportada: ${platform}/${arch}`);
+    console.error(`❌ Unsupported platform: ${platform}/${arch}`);
     process.exit(1);
 }
 
@@ -46,20 +45,20 @@ if (platform === "win32") {
 
 const url = `https://github.com/${repo}/releases/download/${version}/${fileName}`;
 
-console.log(`📦 Instalando commitai ${version} para ${platform}/${arch}`);
+console.log(`📦 Installing commitai ${version} for ${platform}/${arch}`);
 
 function checkDependencies() {
     try {
         spawnSync("curl", ["--version"], { stdio: "pipe" });
     } catch (error) {
-        console.error("❌ curl não encontrado. Instale curl primeiro.");
+        console.error("❌ curl not found. Please install curl first.");
         process.exit(1);
     }
 }
 
 function downloadBinary() {
     try {
-        console.log(`⬇️  Baixando: ${fileName}`);
+        console.log(`⬇️  Downloading: ${fileName}`);
 
         const result = spawnSync(
             "curl",
@@ -71,24 +70,24 @@ function downloadBinary() {
         );
 
         if (result.status !== 0) {
-            throw new Error(`Download falhou: ${result.stderr}`);
+            throw new Error(`Download failed: ${result.stderr}`);
         }
 
         if (!fs.existsSync(binPath) || fs.statSync(binPath).size === 0) {
-            throw new Error("Arquivo baixado está vazio");
+            throw new Error("Downloaded file is empty");
         }
 
         if (platform !== "win32") {
             fs.chmodSync(binPath, 0o755);
         }
 
-        console.log(`✅ commitai instalado com sucesso!`);
-        console.log(`   Teste: npx commitai --help`);
+        console.log(`✅ commitai installed successfully!`);
+        console.log(`   Try: npx commitai or just commitai`);
     } catch (error) {
         console.error(`❌ Erro: ${error.message}`);
-        console.error("\n💡 Verifique:");
-        console.error("1. Conexão com internet");
-        console.error("2. Se a release existe no GitHub");
+        console.error("\n💡 Please check:");
+        console.error("1. Internet connection");
+        console.error("2. If the release exists on GitHub");
         console.error(`3. URL: ${url}`);
         process.exit(1);
     }
