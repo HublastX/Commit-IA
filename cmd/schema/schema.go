@@ -1,10 +1,13 @@
 package schemas
 
 type LLMConfig struct {
-	Provider  string `json:"provider"`
-	Model     string `json:"model"`
-	APIKey    string `json:"api_key"`
-	UseRemote bool   `json:"use_remote"`
+	Provider         string `json:"provider"`
+	Model            string `json:"model"`
+	APIKey           string `json:"api_key"`
+	UseRemote        bool   `json:"use_remote"`
+	CommitType       int    `json:"commit_type"`
+	CustomFormatText string `json:"custom_format_text,omitempty"`
+	UseGitEmoji      bool   `json:"use_git_emoji"`
 }
 
 type ProviderInfo struct {

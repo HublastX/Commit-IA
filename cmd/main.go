@@ -6,7 +6,7 @@ import (
 
 	services "github.com/HublastX/Commit-IA/services"
 	"github.com/HublastX/Commit-IA/services/cli"
-	configpath "github.com/HublastX/Commit-IA/services/configPath"
+	configpath "github.com/HublastX/Commit-IA/services/config_path"
 	"github.com/HublastX/Commit-IA/tools"
 )
 
@@ -18,7 +18,7 @@ func main() {
 				fmt.Printf("Error updating configuration: %v\n", err)
 				os.Exit(1)
 			}
-			fmt.Println("Configuration updated. Run 'commitia' to use.")
+			fmt.Println("Configuration updated. Run 'commitai' to use.")
 			os.Exit(0)
 		}
 	}
@@ -35,7 +35,7 @@ func main() {
 			fmt.Printf("Error in initial configuration: %v\n", err)
 			return
 		}
-		fmt.Println("Initial configuration complete. Run 'commitia' to use.")
+		fmt.Println("Initial configuration complete. Run 'commitai' to use.")
 		os.Exit(0)
 	}
 
@@ -69,7 +69,7 @@ func main() {
 	if config.UseRemote {
 		fmt.Println("Using remote service:", serviceURL)
 	} else {
-		fmt.Println("Using local service:", serviceURL)
+		fmt.Printf("Using local LLM: %s (%s)\n", config.Provider, config.Model)
 	}
 
 	rootCmd := cli.ExecuteCLI(outDiff, serviceURL)
