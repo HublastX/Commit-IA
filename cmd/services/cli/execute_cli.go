@@ -11,7 +11,7 @@ import (
 
 func ExecuteCLI(outDiff string, url string) *cobra.Command {
 	return &cobra.Command{
-		Use:   "commitia",
+		Use:   "commitai",
 		Short: "A CLI tool for handling commits",
 		Run: func(cmd *cobra.Command, args []string) {
 

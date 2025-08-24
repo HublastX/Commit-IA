@@ -18,7 +18,7 @@ func main() {
 				fmt.Printf("Error updating configuration: %v\n", err)
 				os.Exit(1)
 			}
-			fmt.Println("Configuration updated. Run 'commitia' to use.")
+			fmt.Println("Configuration updated. Run 'commitai' to use.")
 			os.Exit(0)
 		}
 	}
@@ -35,7 +35,7 @@ func main() {
 			fmt.Printf("Error in initial configuration: %v\n", err)
 			return
 		}
-		fmt.Println("Initial configuration complete. Run 'commitia' to use.")
+		fmt.Println("Initial configuration complete. Run 'commitai' to use.")
 		os.Exit(0)
 	}
 

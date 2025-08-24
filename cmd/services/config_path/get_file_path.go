@@ -12,7 +12,7 @@ func getConfigFilePath() (string, error) {
 		return "", fmt.Errorf("error getting user home directory: %v", err)
 	}
 
-	configDir := filepath.Join(homeDir, ".commitia")
+	configDir := filepath.Join(homeDir, ".commitai")
 
 	if err := os.MkdirAll(configDir, 0755); err != nil {
 		return "", fmt.Errorf("error creating config directory: %v", err)

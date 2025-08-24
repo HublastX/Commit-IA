@@ -16,7 +16,7 @@ func updateServiceType(config *schemas.LLMConfig) error {
 
 	var selection string
 	prompt := &survey.Select{
-		Message: "How do you want to use CommitIA?",
+		Message: "How do you want to use Commit-AI?",
 		Options: options,
 		Default: options[0],
 	}
@@ -230,7 +230,7 @@ func updateCompleteConfig(config *schemas.LLMConfig) error {
 
 	var selection string
 	prompt := &survey.Select{
-		Message: "How do you want to use CommitIA?",
+		Message: "How do you want to use commitai?",
 		Options: options,
 		Default: options[0],
 	}

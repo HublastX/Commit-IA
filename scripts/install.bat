@@ -9,23 +9,23 @@ cd cmd
 
 echo ==> Compiling binary...
 set GOOS=windows
-go build -o ..\dist\commitia.exe ./
+go build -o ..\dist\commitai.exe ./
 
 cd ..
 
-if not exist dist\commitia.exe (
-  echo Error: Binary 'dist\commitia.exe' was not generated.
+if not exist dist\commitai.exe (
+  echo Error: Binary 'dist\commitai.exe' was not generated.
   exit /b 1
 )
 
 
 echo ==> Installing binary...
 if not exist "%USERPROFILE%\bin" mkdir "%USERPROFILE%\bin"
-copy /Y "dist\commitia.exe" "%USERPROFILE%\bin\commitia.exe"
+copy /Y "dist\commitai.exe" "%USERPROFILE%\bin\commitai.exe"
 
 
 setx PATH "%PATH%;%USERPROFILE%\bin"
 
-echo ==> Binary 'commitia.exe' successfully installed to %USERPROFILE%\bin\commitia.exe
-echo Use 'commitia' to run the program.
+echo ==> Binary 'commitai.exe' successfully installed to %USERPROFILE%\bin\commitai.exe
+echo Use 'commitai' to run the program.
 echo Please restart your command prompt for the changes to take effect.

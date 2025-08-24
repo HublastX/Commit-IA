@@ -8,13 +8,13 @@ cd cmd
 echo ==> Compiling Windows binary...
 set GOOS=windows
 set GOARCH=amd64
-go build -o ..\dist\commitia.exe ./
+go build -o ..\dist\commitai.exe ./
 
 cd ..
 
-if not exist dist\commitia.exe (
-    echo Error: Binary 'dist\commitia.exe' was not generated.
+if not exist dist\commitai.exe (
+    echo Error: Binary 'dist\commitai.exe' was not generated.
     exit /b 1
 )
 
-echo ==> Windows build completed: dist\commitia.exe
+echo ==> Windows build completed: dist\commitai.exe

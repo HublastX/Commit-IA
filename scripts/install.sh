@@ -7,7 +7,7 @@ ROOT_DIR=$(pwd)
 CMD_DIR="${ROOT_DIR}/cmd"
 DIST_DIR="${ROOT_DIR}/dist"
 
-BINARY_NAME="commitia"
+BINARY_NAME="commitai"
 BINARY_PATH="${DIST_DIR}/${BINARY_NAME}"
 INSTALL_PATH="/usr/local/bin/${BINARY_NAME}"
 

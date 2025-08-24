@@ -17,7 +17,7 @@ func UpdateConfig() error {
 		return fmt.Errorf("no existing configuration found. Please run initial setup first")
 	}
 
-	fmt.Println("=== CommitIA Configuration Update ===")
+	fmt.Println("=== Commit-AI Configuration Update ===")
 	fmt.Printf("Current settings:\n")
 	fmt.Printf("- Service: %s\n", map[bool]string{true: "Remote", false: "Local"}[existingConfig.UseRemote])
 	if !existingConfig.UseRemote {

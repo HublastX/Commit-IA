@@ -10,7 +10,7 @@ import (
 )
 
 func FirstTimeSetup() (*schemas.LLMConfig, error) {
-	fmt.Println("Welcome to CommitIA! Let's configure the LLM service.")
+	fmt.Println("Welcome to Commit-AI ! Let's configure the LLM service.")
 
 	options := []string{
 		"Web: Simple and fast to use, no extra configuration needed",
@@ -19,7 +19,7 @@ func FirstTimeSetup() (*schemas.LLMConfig, error) {
 
 	var selection string
 	prompt := &survey.Select{
-		Message: "How do you want to use CommitIA?",
+		Message: "How do you want to use commitai?",
 		Options: options,
 		Default: options[0],
 	}

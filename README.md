@@ -1,6 +1,6 @@
-# CommitIA
+# CommitAI
 
-CommitIA is a command-line tool built in Go that leverages Large Language Models (LLMs) to analyze your Git code changes and automatically generate semantic commit messages.
+CommitAI is a command-line tool built in Go that leverages Large Language Models (LLMs) to analyze your Git code changes and automatically generate semantic commit messages.
 
 ## Features
 
@@ -114,21 +114,21 @@ sudo pacman -S --needed \
     .\install.bat
     ```
 
-The binary will be compiled and installed, making `commitia` available from anywhere in your system.
+The binary will be compiled and installed, making `commitai` available from anywhere in your system.
 
 ## Usage
 
-After using `git add` to stage your changes, you can use CommitIA to generate commit messages.
+After using `git add` to stage your changes, you can use commitai to generate commit messages.
 
 ### Basic Command
 
 ```bash
-commitia
+commitai
 ```
 
 ### Operating Modes
 
-CommitIA offers two operating modes:
+commitai offers two operating modes:
 
 1. **Remote Web Mode** - Access LLMs remotely without additional configuration (might be slower)
 2. **Local Mode** - Run the LLM API locally using Docker (requires provider configuration)
@@ -136,42 +136,42 @@ CommitIA offers two operating modes:
 To switch between modes or update configuration:
 
 ```bash
-commitia --update
+commitai --update
 ```
 
 ### Additional Options
 
 | Option     | Description                          | Example                                   |
 | ---------- | ------------------------------------ | ----------------------------------------- |
-| `-d`       | Add additional context               | `commitia -d "Added login functionality"` |
-| `-l`       | Specify commit language              | `commitia -l "English"`                   |
-| `-t`       | Force specific commit tag            | `commitia -t "feat"`                      |
-| `--update` | Update configuration or switch modes | `commitia --update`                       |
+| `-d`       | Add additional context               | `commitai -d "Added login functionality"` |
+| `-l`       | Specify commit language              | `commitai -l "English"`                   |
+| `-t`       | Force specific commit tag            | `commitai -t "feat"`                      |
+| `--update` | Update configuration or switch modes | `commitai --update`                       |
 
 ### Examples
 
 Generate a commit with additional context:
 
 ```bash
-commitia -d "Created user login feature with OAuth support"
+commitai -d "Created user login feature with OAuth support"
 ```
 
 Generate a commit message in English:
 
 ```bash
-commitia -l "English"
+commitai -l "English"
 ```
 
 Force a specific commit tag:
 
 ```bash
-commitia -t "feat"
+commitai -t "feat"
 ```
 
 Update configuration or switch between local and web modes:
 
 ```bash
-commitia --update
+commitai --update
 ```
 
 ## Local LLM Configuration

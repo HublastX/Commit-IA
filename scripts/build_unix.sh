@@ -4,7 +4,7 @@ set -e
 ROOT_DIR=$(pwd)
 CMD_DIR="${ROOT_DIR}/cmd"
 DIST_DIR="${ROOT_DIR}/dist"
-BINARY_NAME="commitia"
+BINARY_NAME="commitai"
 
 echo "==> Creating dist directory..."
 mkdir -p "${DIST_DIR}"
