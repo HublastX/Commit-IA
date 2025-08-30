@@ -6,7 +6,7 @@ const fs = require("fs");
 
 const platform = os.platform();
 const arch = os.arch();
-const version = "v2.0.0";
+const version = "v2.0.1";
 const repo = "HublastX/Commit-IA";
 
 const archMap = {

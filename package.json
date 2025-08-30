@@ -1,6 +1,6 @@
 {
   "name": "commit-ai-hublast",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "CommitAI is a CLI tool that uses LLM to generate intelligent commit messages",
   "main": "bin/cli.js",
   "bin": {
